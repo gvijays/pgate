@@ -25,8 +25,8 @@ export default function Nav() {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#0D0D0D]/90 backdrop-blur-md border-b border-zinc-800' : 'bg-transparent'
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
+      scrolled ? 'bg-[#0D0D0D]/90 backdrop-blur-md border-zinc-800' : 'bg-transparent border-transparent'
     }`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
