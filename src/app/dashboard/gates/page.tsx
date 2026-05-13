@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import GatesList from '@/components/dashboard/GatesList'
 
+export const dynamic = 'force-dynamic'
+
 export default async function GatesPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

@@ -6,7 +6,6 @@ import { createClient } from '@/lib/supabase/client'
 export default function SettingsForm({ profile }: { profile: Profile | null }) {
   const supabase = createClient()
   const [name,   setName]   = useState(profile?.full_name ?? '')
-  const [slug,   setSlug]   = useState(profile?.vanity_slug ?? '')
   const [saving, setSaving] = useState(false)
   const [saved,  setSaved]  = useState(false)
   const [error,  setError]  = useState('')
@@ -16,7 +15,6 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
     setSaving(true); setError('')
     const { error } = await supabase.from('profiles').update({
       full_name: name,
-      vanity_slug: slug || null,
       updated_at: new Date().toISOString(),
     }).eq('id', profile?.id ?? '')
     setSaving(false)
@@ -41,19 +39,6 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
           <label className="block text-xs font-semibold text-zinc-400 mb-1.5">Email</label>
           <input value={profile?.email ?? ''} disabled
             className="w-full bg-zinc-900 border border-zinc-800 text-zinc-500 text-sm px-4 py-2.5 rounded-xl cursor-not-allowed" />
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold text-zinc-400 mb-1.5">
-            Vanity slug
-            <span className="ml-1 text-zinc-600 font-normal">(optional)</span>
-          </label>
-          <div className="flex items-center bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden focus-within:border-[#4ADE80]/40 transition-colors">
-            <span className="pl-4 text-zinc-600 text-sm whitespace-nowrap">pgate.io/</span>
-            <input value={slug} onChange={e => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
-              placeholder="yourname" maxLength={30}
-              className="flex-1 bg-transparent text-white text-sm pr-4 py-2.5 outline-none placeholder-zinc-700" />
-          </div>
         </div>
 
         {error && <p className="text-red-400 text-xs">{error}</p>}

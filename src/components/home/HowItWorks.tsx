@@ -28,7 +28,7 @@ const STEPS = [
   {
     n: '03',
     title: 'Share & track',
-    body: 'Share your pgate link. The moment someone opens it, you get an instant email. See who, when, and where — in real time.',
+    body: 'Share your link. The moment someone opens it, you get an instant email. See who, when, and where — in real time.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
@@ -46,8 +46,8 @@ export default function HowItWorks() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}
         className="text-center mb-16">
         <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#4ADE80] mb-4">How it works</p>
-        <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">Three steps to protected</h2>
-        <p className="text-zinc-400 text-lg max-w-md mx-auto">From URL to gated link in under 30 seconds.</p>
+        <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">Up and running in 30 seconds</h2>
+        <p className="text-zinc-400 text-lg max-w-md mx-auto">Paste a link, set passwords, share it. That&apos;s it.</p>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">

@@ -28,9 +28,11 @@ export async function POST(request: Request) {
 
   if (!url || !slug) return NextResponse.json({ error: 'URL and slug are required' }, { status: 400 })
 
+  const normalizedUrl = /^https?:\/\//i.test(url) ? url : `https://${url}`
+
   // Create gate
   const { data: gate, error: gateErr } = await supabase.from('gates').insert({
-    user_id: user.id, title, target_url: url, slug, is_active: true,
+    user_id: user.id, title, target_url: normalizedUrl, slug, is_active: true,
   }).select().single()
 
   if (gateErr) {

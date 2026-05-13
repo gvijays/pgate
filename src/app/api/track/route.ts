@@ -33,16 +33,35 @@ export async function POST(request: Request) {
   const deviceType = getDeviceType(ua)
   const ipHash    = hashIp(ip)
 
-  // Geo lookup (best-effort using Vercel headers)
-  const country = request.headers.get('x-vercel-ip-country') ?? null
-  const city    = request.headers.get('x-vercel-ip-city') ?? null
+  // Geo lookup — Vercel headers in prod, ip-api.com fallback otherwise
+  let country = request.headers.get('x-vercel-ip-country') ?? null
+  let city    = request.headers.get('x-vercel-ip-city') ?? null
+
+  if (!country && ip !== 'unknown' && ip !== '127.0.0.1' && ip !== '::1' && !ip.startsWith('192.168.') && !ip.startsWith('10.')) {
+    try {
+      const geo = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,countryCode,city`, { signal: AbortSignal.timeout(2000) })
+      if (geo.ok) {
+        const data = await geo.json()
+        if (data.status === 'success') {
+          country = data.countryCode ?? null
+          city    = data.city ?? null
+        }
+      }
+    } catch { /* best-effort, ignore */ }
+  }
 
   // Check each password
   let matchedPassword = null
+  let expiredMatch    = false
   for (const pw of passwords ?? []) {
-    if (pw.expires_at && new Date(pw.expires_at) < new Date()) continue
     const match = await bcrypt.compare(password, pw.password_hash)
-    if (match) { matchedPassword = pw; break }
+    if (!match) continue
+    if (pw.expires_at && new Date(pw.expires_at) < new Date()) {
+      expiredMatch = true   // correct password, but it has expired
+      break
+    }
+    matchedPassword = pw
+    break
   }
 
   // Record view
@@ -81,7 +100,7 @@ export async function POST(request: Request) {
         })
       } catch (e) { console.error('Email error:', e) }
     }
-    return NextResponse.json({ success: false })
+    return NextResponse.json({ success: false, reason: expiredMatch ? 'expired' : 'wrong' })
   }
 
   // Send view notification email (Maker+)

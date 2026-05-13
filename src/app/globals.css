@@ -26,6 +26,28 @@ body {
 /* Selection */
 ::selection { background: rgba(74, 222, 128, 0.2); color: #4ADE80; }
 
+/* Kill browser autofill white background on all inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #18181b inset !important;
+  -webkit-text-fill-color: #f4f4f5 !important;
+  caret-color: #f4f4f5;
+}
+
+/* Dark-mode native date/time picker icons */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7) brightness(1.4);
+  cursor: pointer;
+  opacity: 0.8;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 @layer utilities {
   .text-neon { color: #4ADE80; }
   .bg-neon { background: #4ADE80; }

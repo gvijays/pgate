@@ -6,7 +6,7 @@ import { Profile } from '@/types'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { href: '/dashboard/gates',   label: 'Gates',      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> },
+  { href: '/dashboard/gates',   label: 'Links',      icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> },
   { href: '/dashboard/settings', label: 'Settings',  icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> },
   { href: '/dashboard/billing',  label: 'Billing',   icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> },
 ]
@@ -57,7 +57,7 @@ export default function Sidebar({ profile }: { profile: Profile | null }) {
           <Link href="/dashboard/billing"
             className="block bg-zinc-900 border border-zinc-800 rounded-xl p-3 hover:border-zinc-700 transition-colors">
             <p className="text-xs font-semibold text-zinc-300 mb-1">Free plan</p>
-            <p className="text-[11px] text-zinc-600 mb-2">2 gates · basic analytics</p>
+            <p className="text-[11px] text-zinc-600 mb-2">2 links · 2 passwords each</p>
             <span className="text-[11px] font-bold text-[#4ADE80]">Upgrade →</span>
           </Link>
         </div>
@@ -69,6 +69,24 @@ export default function Sidebar({ profile }: { profile: Profile | null }) {
           </div>
         </div>
       )}
+
+      {/* DEV: plan switcher — remove before launch */}
+      <div className="px-3 pb-2">
+        <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-2.5">
+          <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-wider mb-2">[DEV] Switch plan</p>
+          <div className="flex gap-1">
+            {(['free', 'maker', 'pro'] as const).map(p => (
+              <button key={p} onClick={async () => {
+                await fetch('/api/dev/set-plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: p }) })
+                window.location.reload()
+              }}
+                className={`flex-1 text-[10px] font-semibold py-1 rounded-lg transition-colors capitalize ${plan === p ? 'bg-[#4ADE80] text-zinc-900' : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300'}`}>
+                {p}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* User */}
       <div className="p-3 border-t border-zinc-900">

@@ -5,19 +5,18 @@ import { PRICING } from '@/types'
 
 const FREE_FEATURES = [
   '2 active gates',
-  '3 passwords per gate',
-  'View count analytics',
-  'First-view email alert',
-  '30-day password expiry',
-  'Random gate URL',
+  '2 passwords per gate',
+  'View count & failed attempt stats',
+  'Passwords auto-expire in 30 days',
+  'Powered by pgate branding',
 ]
 
 const MAKER_FEATURES = [
   '15 active gates',
-  '5 passwords per gate',
-  'Full analytics — who, when, where',
-  'All view email notifications',
-  'Weekly digest email',
+  '10 passwords per gate',
+  'Full analytics — location, device, time',
+  'Instant email on every open',
+  'Weekly digest summary',
   'Failed attempt alerts',
   'Custom password expiry',
   'Custom gate slug',
@@ -25,13 +24,12 @@ const MAKER_FEATURES = [
 
 const PRO_FEATURES = [
   'Unlimited gates',
-  '10 passwords per gate',
+  '20 passwords per gate',
   'Everything in Maker',
   'Custom gate page branding',
-  'Upload your logo',
-  'White-label (no pgate branding)',
-  'Forward detection alerts',
-  'QR code per gate',
+  'Upload your logo + background',
+  'White-label — no pgate branding',
+  'Custom button colour & headline',
 ]
 
 function Check() {

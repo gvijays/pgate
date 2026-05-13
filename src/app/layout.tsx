@@ -1,27 +1,25 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import '@fontsource-variable/inter'
+import '@fontsource-variable/jetbrains-mono'
 import './globals.css'
 
-const geistSans = Inter({ variable: '--font-geist-sans', subsets: ['latin'] })
-const geistMono = JetBrains_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
-
 export const metadata: Metadata = {
-  title: { default: 'pgate — Gate anything. Know everyone.', template: '%s | pgate' },
-  description: 'Password-protect any URL, file, or link in seconds. Know exactly who opened it, when, and from where.',
-  keywords: ['password protect link', 'password protect url', 'password protect file', 'secure link sharing', 'gated content'],
+  title: { default: 'pgate — Password-protect any link and track who opens it', template: '%s | pgate' },
+  description: 'Password-protect any URL in seconds. Works with Figma, Notion, Google Drive, and more. Give each recipient their own password and see exactly who opened it, when, and from where.',
+  keywords: ['password protect link', 'password protect URL', 'password protect Figma', 'password protect Google Drive', 'secure link sharing', 'track who opened link', 'named password sharing', 'secure file sharing'],
   metadataBase: new URL('https://pgate.io'),
   openGraph: {
-    title: 'pgate — Gate anything. Know everyone.',
-    description: 'Password-protect any URL in seconds. Know exactly who opened it.',
+    title: 'pgate — Password-protect any link and track who opens it',
+    description: 'Works with Figma, Notion, Google Drive, and anything with a URL. Each recipient gets their own password — you always know exactly who opened it.',
     siteName: 'pgate',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image', title: 'pgate', description: 'Password-protect any URL in seconds.' },
+  twitter: { card: 'summary_large_image', title: 'pgate — Password-protect any link', description: 'Works with Figma, Notion, Google Drive, and more. Know exactly who opened it, when, and from where.' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en">
       <body className="font-sans antialiased">{children}</body>
     </html>
   )

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Gate } from '@/types'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -10,10 +10,21 @@ export default function GatePage({ gate }: { gate: Gate }) {
   const [attempts,  setAttempts]  = useState(0)
   const [shake,     setShake]     = useState(false)
 
-  const isDark = gate.theme_card_style === 'dark'
-  const bg     = gate.theme_bg_color ?? '#0D0D0D'
-  const btn    = gate.theme_button_color ?? '#4ADE80'
-  const isPro  = gate.theme_hide_branding // proxy for pro (hide_branding only set on pro)
+  const isDark    = gate.theme_card_style === 'dark'
+  const bg        = gate.theme_bg_color ?? '#0D0D0D'
+  const bgImgUrl  = gate.theme_bg_image_url ?? ''
+  const btn       = gate.theme_button_color ?? '#4ADE80'
+  const isPro     = gate.theme_hide_branding
+  const bgStyle   = bgImgUrl
+    ? { backgroundImage: `url(${bgImgUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }
+    : { background: bg }
+
+  // Sync body background so no dark edges show through
+  useEffect(() => {
+    const prev = document.body.style.background
+    document.body.style.background = bgImgUrl ? `url(${bgImgUrl}) center/cover` : bg
+    return () => { document.body.style.background = prev }
+  }, [bg, bgImgUrl])
 
   const triggerShake = () => {
     setShake(true)
@@ -35,6 +46,10 @@ export default function GatePage({ gate }: { gate: Gate }) {
 
       if (data.success && data.redirectUrl) {
         window.location.href = data.redirectUrl
+      } else if (data.reason === 'expired') {
+        setError('This password has expired. Contact the owner for access.')
+        triggerShake()
+        setPassword('')
       } else {
         setAttempts(a => a + 1)
         setError(attempts >= 2 ? `Incorrect password (${attempts + 1} attempts)` : 'Incorrect password')
@@ -49,7 +64,7 @@ export default function GatePage({ gate }: { gate: Gate }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: bg }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={bgStyle}>
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -68,7 +83,7 @@ export default function GatePage({ gate }: { gate: Gate }) {
               <img src={gate.theme_logo_url} alt="Logo" className="h-12 object-contain" />
             ) : (
               <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${isDark ? 'bg-zinc-800 border border-zinc-700' : 'bg-zinc-100 border border-zinc-200'}`}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={isDark ? '#4ADE80' : '#16a34a'} strokeWidth="1.8">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={isDark ? '#71717a' : '#a1a1aa'} strokeWidth="1.8">
                   <rect x="3" y="11" width="18" height="11" rx="2"/>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
@@ -86,19 +101,27 @@ export default function GatePage({ gate }: { gate: Gate }) {
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
+              <div className={`rounded-xl overflow-hidden border transition-all ${
+                error
+                  ? 'border-red-500/50'
+                  : isDark
+                    ? 'border-zinc-700 focus-within:border-[#4ADE80]/40'
+                    : 'border-zinc-200 focus-within:border-green-400/60'
+              }`}>
               <input
-                type="text"
+                type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Access code"
                 autoFocus
-                autoComplete="off"
-                className={`w-full text-sm px-4 py-3 rounded-xl outline-none transition-all ${
+                autoComplete="current-password"
+                className={`w-full text-sm px-4 py-3 outline-none border-none transition-all ${
                   isDark
-                    ? 'bg-zinc-800 border border-zinc-700 text-white placeholder-zinc-600 focus:border-[#4ADE80]/40'
-                    : 'bg-zinc-50 border border-zinc-200 text-zinc-900 placeholder-zinc-400 focus:border-green-400/60'
-                } ${error ? 'border-red-500/50' : ''}`}
+                    ? 'bg-zinc-800 text-white placeholder-zinc-600'
+                    : 'bg-zinc-50 text-zinc-900 placeholder-zinc-400'
+                }`}
               />
+              </div>
               <AnimatePresence>
                 {error && (
                   <motion.p

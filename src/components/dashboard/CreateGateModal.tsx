@@ -43,10 +43,12 @@ export default function CreateGateModal({
 
     try {
       const finalSlug = (limits.customSlug && slug.trim()) ? slug.trim() : generateSlug()
+      const rawUrl    = url.trim()
+      const finalUrl  = /^https?:\/\//i.test(rawUrl) ? rawUrl : `https://${rawUrl}`
       const res = await fetch('/api/gates', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url.trim(), title: title.trim() || null, slug: finalSlug, passwords }),
+        body: JSON.stringify({ url: finalUrl, title: title.trim() || null, slug: finalSlug, passwords }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? 'Failed to create gate')

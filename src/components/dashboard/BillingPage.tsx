@@ -1,10 +1,26 @@
 'use client'
+import { useEffect } from 'react'
 import { Profile, Subscription, PRICING, PLAN_LIMITS } from '@/types'
 import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
 
 const PADDLE_CLIENT_TOKEN = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN ?? ''
 const IS_PADDLE_LIVE = PADDLE_CLIENT_TOKEN && !PADDLE_CLIENT_TOKEN.startsWith('REPLACE')
+
+function usePaddle() {
+  useEffect(() => {
+    if (!IS_PADDLE_LIVE) return
+    const script = document.createElement('script')
+    script.src = 'https://cdn.paddle.com/paddle/v2/paddle.js'
+    script.async = true
+    script.onload = () => {
+      const Paddle = (window as unknown as { Paddle: { Setup: (opts: { token: string }) => void } }).Paddle
+      Paddle.Setup({ token: PADDLE_CLIENT_TOKEN })
+    }
+    document.head.appendChild(script)
+    return () => { document.head.removeChild(script) }
+  }, [])
+}
 
 interface Props { profile: Profile | null; subscription: Subscription | null }
 
@@ -56,6 +72,7 @@ function PlanCard({ title, monthlyPrice, annualPrice, annualMonthly, priceIdMont
 }
 
 export default function BillingPage({ profile, subscription }: Props) {
+  usePaddle()
   const plan    = (profile?.plan ?? 'free') as import('@/types').Plan
   const limits  = PLAN_LIMITS[plan]
 

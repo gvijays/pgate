@@ -22,6 +22,7 @@ export interface Gate {
   theme_bg_color: string
   theme_card_style: 'light' | 'dark'
   theme_logo_url: string | null
+  theme_bg_image_url: string | null
   theme_headline: string | null
   theme_button_color: string
   theme_hide_branding: boolean
@@ -86,7 +87,7 @@ export interface PlanLimits {
 export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
   free: {
     maxGates: 2,
-    maxPasswordsPerGate: 3,
+    maxPasswordsPerGate: 2,
     fullAnalytics: false,
     customExpiry: false,
     customSlug: false,
@@ -98,7 +99,7 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
   },
   maker: {
     maxGates: 15,
-    maxPasswordsPerGate: 5,
+    maxPasswordsPerGate: 10,
     fullAnalytics: true,
     customExpiry: true,
     customSlug: true,
@@ -110,7 +111,7 @@ export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
   },
   pro: {
     maxGates: Infinity,
-    maxPasswordsPerGate: 10,
+    maxPasswordsPerGate: 20,
     fullAnalytics: true,
     customExpiry: true,
     customSlug: true,

@@ -2,6 +2,8 @@ import { createAdminClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import GatePage from '@/components/gate/GatePage'
 
+export const dynamic = 'force-dynamic'
+
 export default async function PublicGatePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const supabase = await createAdminClient()
