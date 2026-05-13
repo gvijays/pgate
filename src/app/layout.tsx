@@ -1,7 +1,20 @@
 import type { Metadata } from 'next'
-import '@fontsource-variable/inter'
+import { Fraunces, Onest } from 'next/font/google'
 import '@fontsource-variable/jetbrains-mono'
 import './globals.css'
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  axes: ['opsz'],          // optical size axis for display sizes
+  variable: '--font-heading',
+  display: 'swap',
+})
+
+const onest = Onest({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: { default: 'pgate — Password-protect any link and track who opens it', template: '%s | pgate' },
@@ -20,7 +33,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">{children}</body>
+      <body className={`${fraunces.variable} ${onest.variable} font-sans antialiased`}>{children}</body>
     </html>
   )
 }
