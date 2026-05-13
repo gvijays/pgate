@@ -19,10 +19,10 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
 }
 
 const PAIN_POINTS = [
-  { icon: '📧', text: 'You email a Dropbox link. It gets forwarded. Twice.' },
-  { icon: '🤷', text: 'No idea who opened it. Or when. Or how many times.' },
-  { icon: '🚨', text: 'Your client shares your proposal with a competitor.' },
-  { icon: '😓', text: 'You ask for the link back. Awkward. Ineffective.' },
+  { emoji: '📧', text: 'You email your portfolio or proposal to multiple people.' },
+  { emoji: '🤷', text: 'No idea who has seen it — or when, or how many times.' },
+  { emoji: '🚨', text: 'Your client could forward it to a competitor. You\'d never know.' },
+  { emoji: '😶', text: 'Did they ghost you? Or just not open it yet? You have no way to tell.' },
 ]
 
 export default function TheProblem() {
@@ -34,13 +34,10 @@ export default function TheProblem() {
           <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-zinc-600">The problem</span>
           <div className="h-px flex-1 bg-zinc-800" />
         </div>
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 leading-snug">
-          Sharing a file used to mean<br />
-          <span className="text-zinc-500">losing control of it forever.</span>
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-14 leading-snug">
+          Sharing a link means<br />
+          <span className="text-zinc-500">going completely blind.</span>
         </h2>
-        <p className="text-zinc-400 text-lg leading-relaxed mb-14">
-          You&apos;ve been there. A link goes out, then it spirals. You have no visibility, no protection, and no way to take it back.
-        </p>
       </FadeIn>
 
       <div className="relative pl-6 border-l border-zinc-800 space-y-10">
@@ -48,7 +45,7 @@ export default function TheProblem() {
           <FadeIn key={i} delay={i * 0.1}>
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-xl flex-shrink-0">
-                {item.icon}
+                {item.emoji}
               </div>
               <p className="text-zinc-300 text-[17px] leading-relaxed pt-1.5">{item.text}</p>
             </div>

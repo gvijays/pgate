@@ -67,6 +67,7 @@ export default function TheDiscovery() {
             </div>
           </div>
         </FadeIn>
+
       </div>
     </section>
   )
