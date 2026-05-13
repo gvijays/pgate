@@ -4,29 +4,29 @@ import Link from 'next/link'
 import { PRICING } from '@/types'
 
 const FREE_FEATURES = [
-  '2 active gates',
-  '2 passwords per gate',
+  '2 active links',
+  '2 passwords per link',
   'View count & failed attempt stats',
   'Passwords auto-expire in 30 days',
   'Powered by pgate branding',
 ]
 
 const MAKER_FEATURES = [
-  '15 active gates',
-  '10 passwords per gate',
+  '15 active links',
+  '10 passwords per link',
+  'Custom link slug — e.g. pgate.io/sara-portfolio instead of pgate.io/xK2m9',
   'Full analytics — location, device, time',
   'Instant email on every open',
   'Weekly digest summary',
   'Failed attempt alerts',
   'Custom password expiry',
-  'Custom gate slug',
 ]
 
 const PRO_FEATURES = [
-  'Unlimited gates',
-  '20 passwords per gate',
+  'Unlimited links',
+  '20 passwords per link',
   'Everything in Maker',
-  'Custom gate page branding',
+  'Custom link page branding',
   'Upload your logo + background',
   'White-label — no pgate branding',
   'Custom button colour & headline',
