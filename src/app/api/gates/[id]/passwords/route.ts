@@ -26,7 +26,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
 
   const { error } = await supabase.from('gate_passwords').insert({
-    gate_id: id, label, password_hash: hash, expires_at: expiresAt,
+    gate_id: id, label, password_hash: hash, password, expires_at: expiresAt,
   })
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ success: true })
@@ -51,7 +51,10 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   const update: Record<string, unknown> = {}
   if (label !== undefined) update.label = label
-  if (password) update.password_hash = await bcrypt.hash(password, 10)
+  if (password) {
+    update.password_hash = await bcrypt.hash(password, 10)
+    update.password = password
+  }
   // Only Maker/Pro can update expiry; key presence in body (even null) means intent to update
   if (limits.customExpiry && 'expires_at' in body) {
     update.expires_at = body.expires_at ?? null

@@ -31,8 +31,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
           </span>
         </header>
 
-        {/* Main content */}
-        <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
+        {/* Main content — Onest for all headings inside dashboard */}
+        <main className="flex-1 overflow-y-auto pb-20 md:pb-0 [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans [&_h5]:font-sans">
           {children}
         </main>
       </div>

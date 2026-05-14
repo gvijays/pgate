@@ -39,6 +39,7 @@ export interface GatePassword {
   gate_id: string
   label: string
   password_hash: string
+  password: string | null
   expires_at: string | null
   is_active: boolean
   created_at: string

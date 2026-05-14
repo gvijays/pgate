@@ -8,8 +8,10 @@ import ForWho from '@/components/home/ForWho'
 import Features from '@/components/home/Features'
 import PricingTable from '@/components/home/PricingTable'
 import Footer from '@/components/home/Footer'
+import { fetchPaddlePrices } from '@/lib/paddle-prices'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const prices = await fetchPaddlePrices()
   return (
     <main className="bg-[#0D0D0D] min-h-screen">
       <Nav />
@@ -20,7 +22,7 @@ export default function HomePage() {
       <HowItWorks />
       <ForWho />
       <Features />
-      <PricingTable />
+      <PricingTable prices={prices} />
 
       {/* Final CTA */}
       <section className="relative py-32 px-4 text-center overflow-hidden">

@@ -43,7 +43,7 @@ export default function Sidebar({ profile }: { profile: Profile | null }) {
               'flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors',
               pathname.startsWith(item.href)
                 ? 'bg-zinc-800 text-white'
-                : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900'
+                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
             )}>
             <span className={pathname.startsWith(item.href) ? 'text-[#4ADE80]' : ''}>{item.icon}</span>
             {item.label}
@@ -57,7 +57,7 @@ export default function Sidebar({ profile }: { profile: Profile | null }) {
           <Link href="/dashboard/billing"
             className="block bg-zinc-900 border border-zinc-800 rounded-xl p-3 hover:border-zinc-700 transition-colors">
             <p className="text-xs font-semibold text-zinc-300 mb-1">Free plan</p>
-            <p className="text-[11px] text-zinc-600 mb-2">2 links · 2 passwords each</p>
+            <p className="text-[11px] text-zinc-400 mb-2">2 links · 2 passwords each</p>
             <span className="text-[11px] font-bold text-[#4ADE80]">Upgrade →</span>
           </Link>
         </div>
@@ -70,24 +70,6 @@ export default function Sidebar({ profile }: { profile: Profile | null }) {
         </div>
       )}
 
-      {/* DEV: plan switcher — remove before launch */}
-      <div className="px-3 pb-2">
-        <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-2.5">
-          <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-wider mb-2">[DEV] Switch plan</p>
-          <div className="flex gap-1">
-            {(['free', 'maker', 'pro'] as const).map(p => (
-              <button key={p} onClick={async () => {
-                await fetch('/api/dev/set-plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: p }) })
-                window.location.reload()
-              }}
-                className={`flex-1 text-[10px] font-semibold py-1 rounded-lg transition-colors capitalize ${plan === p ? 'bg-[#4ADE80] text-zinc-900' : 'bg-zinc-800 text-zinc-500 hover:text-zinc-300'}`}>
-                {p}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* User */}
       <div className="p-3 border-t border-zinc-900">
         <div className="flex items-center gap-2.5 px-2 py-2">
@@ -97,7 +79,7 @@ export default function Sidebar({ profile }: { profile: Profile | null }) {
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-zinc-300 truncate">{profile?.full_name ?? profile?.email ?? 'User'}</p>
           </div>
-          <button onClick={handleLogout} className="text-zinc-600 hover:text-zinc-400 transition-colors" title="Log out">
+          <button onClick={handleLogout} className="text-zinc-500 hover:text-zinc-300 transition-colors" title="Log out">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           </button>
         </div>
