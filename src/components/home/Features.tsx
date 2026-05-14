@@ -21,7 +21,7 @@ function AnalyticsFeature() {
     { label: 'Priya @ a16z',      time: '3 days ago',  country: '🇺🇸', device: 'iPhone',  opens: 1, color: 'text-zinc-300' },
   ]
   return (
-    <section className="py-24 px-4">
+    <section className="py-16 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <FadeSection>
           <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#4ADE80] mb-4">Know who opened it</p>
@@ -88,7 +88,7 @@ function PasswordsFeature() {
     { label: 'a16z',          pwd: 'A16-Q3N8', expiresLabel: 'Expired',       expired: true,  active: false },
   ]
   return (
-    <section className="py-24 px-4 bg-zinc-950/50">
+    <section className="py-16 px-4 bg-zinc-950/50">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <FadeSection delay={0.1} >
           <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden lg:order-first order-last">
@@ -304,7 +304,7 @@ function BrandingSlider() {
 
 function BrandingFeature() {
   return (
-    <section className="py-24 px-4">
+    <section className="py-16 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <FadeSection>
           <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#4ADE80] mb-4">Custom branding</p>
@@ -338,7 +338,7 @@ function WorksOnEverything() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   return (
-    <section ref={ref} className="py-24 px-4 bg-zinc-950/50 border-y border-zinc-900">
+    <section ref={ref} className="py-16 px-4 bg-zinc-950/50 border-y border-zinc-900">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
           <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#4ADE80] mb-4">Compatibility</p>

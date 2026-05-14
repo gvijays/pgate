@@ -27,7 +27,7 @@ const PAIN_POINTS = [
 
 export default function TheProblem() {
   return (
-    <section className="max-w-3xl mx-auto px-6 py-24">
+    <section className="max-w-3xl mx-auto px-6 py-16">
       <FadeIn>
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px flex-1 bg-zinc-800" />

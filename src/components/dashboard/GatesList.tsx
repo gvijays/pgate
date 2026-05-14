@@ -224,29 +224,32 @@ export default function GatesList({
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-xl font-bold text-white">Your Links</h1>
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-xl font-bold text-white">Your Links</h1>
+            {plan === 'free' && (
+              <Link href="/dashboard/billing"
+                className="text-[11px] font-semibold text-amber-400 border border-amber-500/30 bg-amber-500/10 px-2 py-1 rounded-lg hover:bg-amber-500/20 transition-colors whitespace-nowrap">
+                ✦ Upgrade
+              </Link>
+            )}
+          </div>
           <p className="text-zinc-500 text-sm mt-0.5">
             {gates.length} of {limits.maxGates === Infinity ? 'unlimited' : limits.maxGates} links used
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
-          {plan === 'free' && (
-            <Link href="/dashboard/billing"
-              className="text-xs font-semibold text-amber-400 border border-amber-500/30 bg-amber-500/10 px-3 py-2 rounded-xl hover:bg-amber-500/20 transition-colors whitespace-nowrap">
-              ✦ Upgrade
-            </Link>
-          )}
+        <div className="flex flex-row items-center gap-1.5">
           <button
             onClick={() => setShowCreate(true)}
             disabled={atLimit}
             className={cn(
-              'flex items-center gap-1.5 text-sm font-semibold px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl transition-colors whitespace-nowrap',
+              'flex items-center gap-1.5 text-[11px] sm:text-sm font-semibold px-2.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl transition-colors whitespace-nowrap',
               atLimit
                 ? 'bg-zinc-800 text-zinc-600 cursor-not-allowed border border-zinc-700'
                 : 'bg-[#4ADE80] text-[#0D0D0D] hover:bg-[#22c55e]'
             )}
           >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <svg className="hidden sm:block" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <svg className="sm:hidden" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             {atLimit ? 'Limit reached' : 'New link'}
           </button>
         </div>

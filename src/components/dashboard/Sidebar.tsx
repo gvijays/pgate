@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Profile } from '@/types'
@@ -28,10 +29,8 @@ export default function Sidebar({ profile }: { profile: Profile | null }) {
       {/* Logo */}
       <div className="p-5 border-b border-zinc-900">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-md bg-[#4ADE80] flex items-center justify-center">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <span className="font-bold text-white text-[16px] tracking-tight">pgate</span>
+          <Image src="/logo.png" alt="p/gate logo" width={26} height={26} className="rounded-md" />
+          <span className="font-typewriter text-white text-[20px]">p/gate</span>
         </Link>
       </div>
 

@@ -20,7 +20,7 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
 
 export default function TheDiscovery() {
   return (
-    <section className="py-24 bg-zinc-950/60">
+    <section className="py-16 bg-zinc-950/60">
       <div className="max-w-3xl mx-auto px-6">
         <FadeIn>
           <div className="flex items-center gap-3 mb-6">

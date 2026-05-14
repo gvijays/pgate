@@ -94,7 +94,7 @@ export default function HowItWorks() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="how-it-works" ref={ref} className="py-24 px-4 max-w-6xl mx-auto">
+    <section id="how-it-works" ref={ref} className="py-16 px-4 max-w-6xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}
         className="text-center mb-16">
         <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#4ADE80] mb-4">How it works</p>

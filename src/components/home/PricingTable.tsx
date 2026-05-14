@@ -96,7 +96,7 @@ export default function PricingTable({ prices = FALLBACK_PRICES }: { prices?: Pa
   const [annual, setAnnual] = useState(true)
 
   return (
-    <section id="pricing" className="py-24 px-4">
+    <section id="pricing" className="py-16 px-4">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}

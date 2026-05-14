@@ -175,7 +175,7 @@ export default function ForWho() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="py-24 px-4 border-y border-zinc-900/60">
+    <section ref={ref} className="py-16 px-4 border-y border-zinc-900/60">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div

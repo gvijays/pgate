@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Profile, PLAN_LIMITS } from '@/types'
 import { generateSlug, generatePassword, cn } from '@/lib/utils'
@@ -18,9 +18,43 @@ export default function CreateGateModal({
   const [slug,      setSlug]      = useState('')
   const [loading,   setLoading]   = useState(false)
   const [error,     setError]     = useState('')
+  const [slugError, setSlugError] = useState('')
+  const [slugOk,    setSlugOk]    = useState(false)
+  const [checkingSlug, setCheckingSlug] = useState(false)
   const [passwords, setPasswords] = useState<PasswordEntry[]>([
     { label: 'Recipient 1', password: generatePassword() },
   ])
+
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Debounced slug availability check
+  useEffect(() => {
+    if (!limits.customSlug || !slug.trim()) {
+      setSlugError('')
+      setSlugOk(false)
+      return
+    }
+    setSlugOk(false)
+    setSlugError('')
+    setCheckingSlug(true)
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(async () => {
+      const { data } = await supabase
+        .from('gates')
+        .select('id')
+        .eq('slug', slug.trim())
+        .maybeSingle()
+      setCheckingSlug(false)
+      if (data) {
+        setSlugError('This slug is already taken. Try another.')
+        setSlugOk(false)
+      } else {
+        setSlugError('')
+        setSlugOk(true)
+      }
+    }, 450)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [slug, limits.customSlug])
 
   const addPassword = () => {
     if (passwords.length >= limits.maxPasswordsPerGate) return
@@ -39,6 +73,7 @@ export default function CreateGateModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!url.trim()) return
+    if (slugError) return
     setLoading(true); setError('')
 
     try {
@@ -51,7 +86,10 @@ export default function CreateGateModal({
         body: JSON.stringify({ url: finalUrl, title: title.trim() || null, slug: finalSlug, passwords }),
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error ?? 'Failed to protect link')
+      if (!res.ok) {
+        if (res.status === 409) { setSlugError(data.error); return }
+        throw new Error(data.error ?? 'Failed to protect link')
+      }
       onCreated()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
@@ -59,6 +97,12 @@ export default function CreateGateModal({
       setLoading(false)
     }
   }
+
+  const slugInputBorder = slugError
+    ? 'border-red-500/50 focus-within:border-red-500/70'
+    : slugOk
+    ? 'border-[#4ADE80]/40 focus-within:border-[#4ADE80]/60'
+    : 'border-zinc-700 focus-within:border-[#4ADE80]/40'
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
@@ -91,12 +135,40 @@ export default function CreateGateModal({
           {limits.customSlug ? (
             <div>
               <label className="block text-xs font-semibold text-zinc-400 mb-1.5">Custom slug <span className="text-zinc-600 font-normal">(optional)</span></label>
-              <div className="flex items-center bg-zinc-800 border border-zinc-700 rounded-xl overflow-hidden focus-within:border-[#4ADE80]/40 transition-colors">
+              <div className={cn('flex items-center bg-zinc-800 border rounded-xl overflow-hidden transition-colors', slugInputBorder)}>
                 <span className="pl-4 text-zinc-600 text-sm whitespace-nowrap">pgate.io/g/</span>
-                <input value={slug} onChange={e => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
-                  placeholder="my-portfolio" maxLength={40}
-                  className="flex-1 bg-transparent text-white text-sm pr-4 py-2.5 outline-none placeholder-zinc-700" />
+                <input
+                  value={slug}
+                  onChange={e => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
+                  placeholder="my-portfolio"
+                  maxLength={40}
+                  className="flex-1 bg-transparent text-white text-sm pr-4 py-2.5 outline-none placeholder-zinc-700"
+                />
+                {/* Status indicator */}
+                <div className="pr-3 flex-shrink-0">
+                  {checkingSlug && (
+                    <svg className="animate-spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#71717a" strokeWidth="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                  )}
+                  {!checkingSlug && slugOk && (
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  )}
+                  {!checkingSlug && slugError && (
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f87171" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  )}
+                </div>
               </div>
+              {slugError && (
+                <p className="text-red-400 text-[11px] mt-1.5 flex items-center gap-1">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  {slugError}
+                </p>
+              )}
+              {!slugError && slugOk && (
+                <p className="text-[#4ADE80] text-[11px] mt-1.5 flex items-center gap-1">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  pgate.io/g/{slug} is available
+                </p>
+              )}
             </div>
           ) : (
             <div className="flex items-center gap-2 text-xs text-zinc-600 bg-zinc-800 rounded-xl px-4 py-3 border border-zinc-700">
@@ -141,7 +213,7 @@ export default function CreateGateModal({
               className="flex-1 border border-zinc-700 text-zinc-400 hover:text-zinc-200 text-sm font-medium py-2.5 rounded-xl transition-colors">
               Cancel
             </button>
-            <button type="submit" disabled={loading || !url.trim()}
+            <button type="submit" disabled={loading || !url.trim() || !!slugError || checkingSlug}
               className="flex-1 bg-[#4ADE80] text-[#0D0D0D] font-semibold text-sm py-2.5 rounded-xl hover:bg-[#22c55e] transition-colors disabled:opacity-50">
               {loading ? 'Protecting…' : 'Protect this link →'}
             </button>

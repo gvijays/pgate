@@ -25,7 +25,7 @@ export default async function HomePage() {
       <PricingTable prices={prices} />
 
       {/* Final CTA */}
-      <section className="relative py-32 px-4 text-center overflow-hidden">
+      <section className="relative py-20 px-4 text-center overflow-hidden">
         {/* Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-[#4ADE80]/8 rounded-full blur-[100px] pointer-events-none" />
         {/* Subtle grid */}
