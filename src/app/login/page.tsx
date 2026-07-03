@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Suspense } from 'react'
 
 function LoginForm() {
@@ -55,10 +56,8 @@ function LoginForm() {
       <div className="w-full max-w-[400px]">
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center gap-2 mb-10">
-          <div className="w-8 h-8 rounded-lg bg-[#4ADE80] flex items-center justify-center">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <span className="font-bold text-white text-xl tracking-tight">pgate</span>
+          <Image src="/logo.png" alt="p/gate logo" width={28} height={28} className="rounded-md" />
+          <span className="font-typewriter text-white text-[18px]">p/gate</span>
         </Link>
 
         <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
