@@ -94,8 +94,8 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
             {page.subhead}
           </p>
 
-          {/* Interactive create widget — same as home page */}
-          <ProtectWidget animate={false} />
+          {/* Interactive create widget — same as home page, brand-specific placeholder */}
+          <ProtectWidget animate={false} placeholders={[page.placeholder]} />
         </div>
       </section>
 

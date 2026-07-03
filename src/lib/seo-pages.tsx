@@ -14,6 +14,8 @@ export interface SeoPage {
   h1: ReactNode
   /** short line under the H1 */
   subhead: string
+  /** placeholder shown in the URL field of the create widget */
+  placeholder: string
   /** direct answer to the searcher's question — the "why pgate" paragraph */
   intro: string
   steps: SeoStep[]
@@ -50,6 +52,7 @@ export const SEO_PAGES: Record<string, SeoPage> = {
       </>
     ),
     subhead: 'One password per recipient. See exactly who opens your Webflow page.',
+    placeholder: 'https://your-site.webflow.io/page...',
     intro:
       "Webflow's built-in password protection only works on paid Site plans, and it locks the whole page behind a single shared password — you never know who actually opened it. pgate works with any Webflow link, including free sites. Give each person their own password, labelled by name, and see every open with location and device.",
     steps: [
