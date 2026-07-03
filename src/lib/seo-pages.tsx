@@ -42,7 +42,7 @@ export const SEO_PAGES: Record<string, SeoPage> = {
     brand: 'Webflow',
     brandColor: '#146EF5',
     logo: <WebflowLogo />,
-    metaTitle: 'Password Protect a Webflow Link | pgate',
+    metaTitle: 'Password Protect a Webflow Page',
     metaDescription:
       'Add a password to any Webflow link in seconds — even on the free plan. Give each recipient their own password and see exactly who opens it, when, and from where.',
     h1: (
