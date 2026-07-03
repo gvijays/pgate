@@ -143,7 +143,7 @@ export default function ToolPage({ params }: { params: { tool: string } }) {
       <section className="px-4 py-14">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6 text-center">
-            {page.brand}’s built-in password protection
+            {page.nativeTitle ?? `${page.brand}’s built-in password protection`}
           </h2>
           <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-7 sm:p-9">
             <p className="text-zinc-300 text-[16px] sm:text-[17px] leading-[1.8]">{page.intro}</p>
