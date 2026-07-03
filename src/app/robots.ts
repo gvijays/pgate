@@ -12,31 +12,31 @@ export default function robots(): MetadataRoute.Robots {
       // OpenAI / ChatGPT
       {
         userAgent: 'GPTBot',
-        allow: ['/', '/blog/', '/pricing'],
+        allow: ['/', '/blog/', '/pricing', '/password-protect/'],
         disallow: ['/dashboard/', '/api/'],
       },
       // Anthropic / Claude
       {
         userAgent: 'ClaudeBot',
-        allow: ['/', '/blog/', '/pricing'],
+        allow: ['/', '/blog/', '/pricing', '/password-protect/'],
         disallow: ['/dashboard/', '/api/'],
       },
       // Perplexity
       {
         userAgent: 'PerplexityBot',
-        allow: ['/', '/blog/', '/pricing'],
+        allow: ['/', '/blog/', '/pricing', '/password-protect/'],
         disallow: ['/dashboard/', '/api/'],
       },
       // Google AI / Gemini
       {
         userAgent: 'Google-Extended',
-        allow: ['/', '/blog/', '/pricing'],
+        allow: ['/', '/blog/', '/pricing', '/password-protect/'],
         disallow: ['/dashboard/', '/api/'],
       },
       // Meta AI
       {
         userAgent: 'FacebookBot',
-        allow: ['/', '/blog/', '/pricing'],
+        allow: ['/', '/blog/', '/pricing', '/password-protect/'],
         disallow: ['/dashboard/', '/api/'],
       },
     ],

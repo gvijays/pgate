@@ -214,7 +214,7 @@ export const SEO_PAGES: Record<string, SeoPage> = {
 
   'google-drive': {
     slug: 'google-drive', brand: 'Google Drive', brandColor: '#4285F4', logo: <GoogleDrive />,
-    metaTitle: 'Password Protect a Google Drive Folder',
+    metaTitle: 'Google Drive Password Protect a Folder',
     metaDescription: 'Google Drive has no password option for files or folders. pgate wraps any Drive link with a password — one per recipient — and shows you who opened it.',
     h1: (<>Password-protect<br /><span style={{ color: '#4ADE80' }}>your Google Drive</span></>),
     subhead: 'Add a password to your Drive link. See exactly who opens it.',
@@ -408,7 +408,7 @@ export const SEO_PAGES: Record<string, SeoPage> = {
 
   framer: {
     slug: 'framer', brand: 'Framer', brandColor: '#0099FF', logo: <Framer />,
-    metaTitle: 'Password Protect a Framer Site',
+    metaTitle: 'Framer Password Protect: Add a Page Password',
     metaDescription: 'Framer’s password protection is a single shared password on paid plans, with no view analytics. pgate wraps any Framer link with a per-recipient password.',
     h1: (<>Password-protect<br /><span style={{ color: '#4ADE80' }}>your Framer site</span></>),
     subhead: 'One password per recipient. See exactly who opens your Framer site.',

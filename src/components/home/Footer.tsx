@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { SEO_PAGES } from '@/lib/seo-pages'
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 export default function Footer() {
   return (
@@ -48,6 +51,19 @@ export default function Footer() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Password-protect anything — internal link grid */}
+        <div className="pt-8 border-t border-zinc-900 mb-8">
+          <p className="text-xs font-bold uppercase tracking-[0.08em] text-zinc-600 mb-4">Password-protect anything</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-2.5">
+            {Object.values(SEO_PAGES).map(p => (
+              <Link key={p.slug} href={`/password-protect/${p.slug}`}
+                className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
+                {cap(p.brand)}
+              </Link>
+            ))}
           </div>
         </div>
 
