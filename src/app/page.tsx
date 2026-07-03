@@ -7,13 +7,32 @@ import HowItWorks from '@/components/home/HowItWorks'
 import ForWho from '@/components/home/ForWho'
 import Features from '@/components/home/Features'
 import PricingTable from '@/components/home/PricingTable'
+import FAQ from '@/components/home/FAQ'
 import Footer from '@/components/home/Footer'
-import { fetchPaddlePrices } from '@/lib/paddle-prices'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'pgate',
+  applicationCategory: 'SecurityApplication',
+  operatingSystem: 'Web',
+  url: 'https://pgate.io',
+  description: 'Password-protect any URL in seconds. Give each recipient their own password and see exactly who opened it, when, and from where.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    description: 'Free plan available. Pro plan $15/year.',
+  },
+}
 
 export default async function HomePage() {
-  const prices = await fetchPaddlePrices()
   return (
     <main className="bg-[#0D0D0D] min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Nav />
       <Hero />
       <Marquee />
@@ -22,7 +41,8 @@ export default async function HomePage() {
       <HowItWorks />
       <ForWho />
       <Features />
-      <PricingTable prices={prices} />
+      <PricingTable />
+      <FAQ />
 
       {/* Final CTA */}
       <section className="relative py-20 px-4 text-center overflow-hidden">

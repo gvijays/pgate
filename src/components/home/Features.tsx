@@ -17,8 +17,9 @@ function FadeSection({ children, delay = 0 }: { children: React.ReactNode; delay
 function AnalyticsFeature() {
   const views = [
     { label: 'Sarah @ Google',    time: '2 min ago',   country: '🇬🇧', device: 'iPhone',  opens: 3, color: 'text-[#4ADE80]' },
-    { label: 'Marcus @ Stripe',   time: '1 hr ago',    country: '🇺🇸', device: 'MacBook', opens: 1, color: 'text-zinc-300' },
-    { label: 'Priya @ a16z',      time: '3 days ago',  country: '🇺🇸', device: 'iPhone',  opens: 1, color: 'text-zinc-300' },
+    { label: 'Marcus @ Stripe',   time: '1 hr ago',    country: '🇺🇸', device: 'MacBook', opens: 2, color: 'text-zinc-300' },
+    { label: 'Priya @ a16z',      time: '3 days ago',  country: '🇮🇳', device: 'iPhone',  opens: 1, color: 'text-zinc-500' },
+    { label: 'Tom @ Sequoia',     time: '5 days ago',  country: '🇺🇸', device: 'MacBook', opens: 0, color: 'text-zinc-600' },
   ]
   return (
     <section className="py-16 px-4">
@@ -49,13 +50,16 @@ function AnalyticsFeature() {
           </ul>
         </FadeSection>
         <FadeSection delay={0.1}>
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+          <div className="relative bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+            {/* Bottom-corner glow */}
+            <div className="absolute bottom-0 right-0 w-56 h-32 bg-[#4ADE80]/8 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#4ADE80]/5 to-transparent pointer-events-none" />
             <div className="px-5 py-4 border-b border-zinc-800 flex items-center justify-between">
               <div>
                 <p className="text-sm font-semibold text-white">Google Portfolio</p>
                 <p className="text-xs text-zinc-500 mt-0.5">pgate.io/vijay-portfolio</p>
               </div>
-              <span className="text-xs bg-[#4ADE80]/10 text-[#4ADE80] border border-[#4ADE80]/20 px-2.5 py-1 rounded-full font-medium">5 opens</span>
+              <span className="text-xs bg-[#4ADE80]/10 text-[#4ADE80] border border-[#4ADE80]/20 px-2.5 py-1 rounded-full font-medium">6 opens</span>
             </div>
             <div className="divide-y divide-zinc-800">
               {views.map((v, i) => (
@@ -68,7 +72,7 @@ function AnalyticsFeature() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-zinc-500">{v.opens}× opened</p>
+                    <p className="text-xs text-zinc-500">{v.opens > 0 ? `${v.opens}× opened` : 'Not opened'}</p>
                   </div>
                 </div>
               ))}
@@ -90,8 +94,41 @@ function PasswordsFeature() {
   return (
     <section className="py-16 px-4 bg-zinc-950/50">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <FadeSection delay={0.1} >
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden lg:order-first order-last">
+        {/* Text — first in DOM (first on mobile), second column on desktop */}
+        <div className="lg:order-2">
+        <FadeSection>
+          <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#4ADE80] mb-4">Labelled passwords</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4 leading-tight">
+            One link.<br />A separate password<br />for each person.
+          </h2>
+          <p className="text-zinc-400 text-[15px] leading-relaxed mb-3 max-w-md">
+            Say you&apos;re sharing your pitch deck with three investors. Instead of giving everyone the same password, you create three — one labelled &ldquo;Stripe Team&rdquo;, one &ldquo;Y Combinator&rdquo;, one &ldquo;a16z&rdquo;.
+          </p>
+          <p className="text-zinc-400 text-[15px] leading-relaxed mb-6 max-w-md">
+            Same link. Three different passwords. Each one tied to a name — so when someone opens it, you know exactly who did.
+          </p>
+          <ul className="space-y-3">
+            {[
+              'Create as many passwords as you need for one link',
+              'Label each one so you know who it belongs to',
+              'Set an expiry — it stops working automatically after that',
+              'Remove one person\'s access without touching the others',
+            ].map(item => (
+              <li key={item} className="flex items-center gap-2.5 text-zinc-300 text-[14px]">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </FadeSection>
+        </div>
+        {/* Card — second in DOM (below text on mobile), first column on desktop */}
+        <div className="lg:order-1">
+        <FadeSection delay={0.1}>
+          <div className="relative bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+            {/* Bottom-corner glow */}
+            <div className="absolute bottom-0 left-0 w-56 h-32 bg-[#4ADE80]/8 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#4ADE80]/5 to-transparent pointer-events-none" />
             <div className="px-5 py-4 border-b border-zinc-800">
               <p className="text-sm font-semibold text-white">Pitch Deck — Series A</p>
               <p className="text-xs text-zinc-500 mt-0.5">3 labelled passwords · custom expiry per recipient</p>
@@ -126,31 +163,7 @@ function PasswordsFeature() {
             </div>
           </div>
         </FadeSection>
-        <FadeSection>
-          <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#4ADE80] mb-4">Labelled passwords</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4 leading-tight">
-            One link.<br />A separate password<br />for each person.
-          </h2>
-          <p className="text-zinc-400 text-[15px] leading-relaxed mb-3 max-w-md">
-            Say you&apos;re sharing your pitch deck with three investors. Instead of giving everyone the same password, you create three — one labelled &ldquo;Stripe Team&rdquo;, one &ldquo;Y Combinator&rdquo;, one &ldquo;a16z&rdquo;.
-          </p>
-          <p className="text-zinc-400 text-[15px] leading-relaxed mb-6 max-w-md">
-            Same link. Three different passwords. Each one tied to a name — so when someone opens it, you know exactly who did.
-          </p>
-          <ul className="space-y-3">
-            {[
-              'Create as many passwords as you need for one link',
-              'Label each one so you know who it belongs to',
-              'Set an expiry — it stops working automatically after that',
-              'Remove one person\'s access without touching the others',
-            ].map(item => (
-              <li key={item} className="flex items-center gap-2.5 text-zinc-300 text-[14px]">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </FadeSection>
+        </div>
       </div>
     </section>
   )

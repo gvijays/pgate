@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -8,10 +9,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="max-w-[200px]">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-6 h-6 rounded-md bg-[#4ADE80] flex items-center justify-center">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              </div>
-              <span className="font-bold text-white text-[16px]">pgate</span>
+              <Image src="/logo.png" alt="p/gate logo" width={24} height={24} className="rounded-md" />
+              <span className="font-typewriter text-white text-[18px]">p/gate</span>
             </div>
             <p className="text-zinc-600 text-[13px] leading-relaxed">
               Password-protect any link.<br />Know exactly who opens it.
@@ -26,6 +25,7 @@ export default function Footer() {
                 {[
                   ['How it works', '/#how-it-works'],
                   ['Pricing',      '/pricing'],
+                  ['Blog',         '/blog'],
                   ['Dashboard',    '/dashboard'],
                   ['Sign up free', '/login'],
                 ].map(([label, href]) => (
@@ -52,7 +52,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-zinc-900">
-          <p className="text-zinc-700 text-xs">© 2025 pgate. All rights reserved.</p>
+          <p className="text-zinc-700 text-xs">© 2026 pgate. All rights reserved.</p>
           <p className="text-zinc-700 text-xs">Built for people who share things that matter.</p>
         </div>
       </div>
