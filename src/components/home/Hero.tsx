@@ -144,30 +144,16 @@ export default function Hero() {
 
           {/* Headline */}
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}
-            className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] mb-5 text-white">
-            Password-protect any link —<br />
-            <span className="text-[#4ADE80]">see exactly who opens it.</span>
+            className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] mb-6 text-white">
+            Password-protect<span className="sm:hidden"><br /></span>{' '}any link<br />
+            <span className="text-[#4ADE80]">See who opens it.</span>
           </motion.h1>
 
           {/* Subtext */}
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-zinc-400 text-lg sm:text-xl max-w-xl mx-auto leading-relaxed mb-6">
-            Works with Figma, Notion, Google Drive — any URL.
+            className="text-zinc-400 text-base sm:text-lg max-w-xl mx-auto leading-relaxed mb-10">
+            Password-protect any link, file, doc, PDF or website. Set multiple passwords for the same link — one per recipient — and track exactly who opens it.
           </motion.p>
-
-          {/* Per-recipient callout pills */}
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-wrap items-center justify-center gap-2 mb-10">
-            {[
-              { icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" strokeWidth="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, label: 'One password per recipient' },
-              { icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, label: 'See opens in real time' },
-              { icon: <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" strokeWidth="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>, label: 'Location & device tracking' },
-            ].map(({ icon, label }) => (
-              <span key={label} className="inline-flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs px-3 py-1.5 rounded-full">
-                {icon}{label}
-              </span>
-            ))}
-          </motion.div>
 
           {/* ── Fields ── */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.22 }}
