@@ -128,7 +128,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-20 pb-16 overflow-hidden">
+      <section className="relative flex flex-col items-center justify-center px-4 pt-28 pb-20 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(74,222,128,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(74,222,128,0.03)_1px,transparent_1px)] bg-[size:48px_48px]" />
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#4ADE80]/5 rounded-full blur-3xl pointer-events-none" />
