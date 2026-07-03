@@ -144,9 +144,9 @@ export default function Hero() {
 
           {/* Headline */}
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}
-            className="text-4xl sm:text-5xl lg:text-5xl font-bold tracking-tight leading-[1.1] mb-5 text-white">
-            Password-protect any link —<br />
-            <span className="text-[#4ADE80]">see exactly who opens it.</span>
+            className="text-[22px] sm:text-5xl font-bold tracking-tight leading-[1.15] mb-5 text-white">
+            Password-protect any link<br />
+            <span className="text-[#4ADE80]">— see exactly who opens it.</span>
           </motion.h1>
 
           {/* Subtext */}
