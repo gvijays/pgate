@@ -48,7 +48,7 @@ export const SEO_PAGES: Record<string, SeoPage> = {
     h1: (
       <>
         Password-protect<br />
-        <span style={{ color: '#146EF5' }}>your Webflow link</span>
+        <span style={{ color: '#4ADE80' }}>your Webflow link</span>
       </>
     ),
     subhead: 'One password per recipient. See exactly who opens your Webflow page.',
