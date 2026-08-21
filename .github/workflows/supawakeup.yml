@@ -1,0 +1,19 @@
+name: SupaWakeUp
+
+on:
+  schedule:
+    - cron: "17 3 */3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    env:
+      SUPAWAKEUP_URL: ${{ secrets.SUPAWAKEUP_URL }}
+      SUPAWAKEUP_PUBLISHABLE_KEY: ${{ secrets.SUPAWAKEUP_PUBLISHABLE_KEY }}
+    steps:
+      - name: Keep Supabase active
+        run: npx --yes supawakeup@latest ping
